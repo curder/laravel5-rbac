@@ -156,6 +156,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * 页面Form表单
+         */
+        Collective\Html\HtmlServiceProvider::class,
+        /**
+         * 权限验证
+         */
+        Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -201,6 +209,16 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * 页面Form表单
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        /**
+         * 权限验证
+         */
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 
