@@ -32,4 +32,5 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('permission/index',['as'=>'permission.index','uses'=>'PermissionController@index']);
     Route::match(['get','post'],'permission/create',['as'=>'permission.create','uses'=>'PermissionController@create']);
     Route::match(['get','post'],'permission/{role}/edit',['as'=>'permission.edit','uses'=>'PermissionController@edit']);
+
 });

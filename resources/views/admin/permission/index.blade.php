@@ -91,19 +91,18 @@
             </div>
             <dl class="cate-item">
                 <dt class="clearfix">
-                    <form action="http://blog.webfsd.com/backend.php/AuthManager/editAuthRule.html" method="post">
+                    <form action="" method="post">
                         <div class="btn-toolbar opt-btn clearfix">
-                            <a href="http://blog.webfsd.com/backend.php/AuthManager/editAuthRule/id/75/pid/1.html" data-toggle="modal">编辑</a>
-                            <a href="http://blog.webfsd.com/backend.php/AuthManager/changeAuthRuleStatus/status/delete/ids/75/model/AuthRule.html" class="deleter">删除</a>
+                            <a href="" data-toggle="modal">编辑</a>
+                            <a href="" class="deleter">删除</a>
                         </div>
-
                         <div class="fold"><i></i></div>
                         <div class="order"><input type="text" name="sort" class="form-control text input-mini" value="11"></div>
                         <div class="name">
                             <span class="tab-sign"></span>
                             <input type="hidden" name="id" value="75">
                             <input type="text" name="title" class="form-control text" style="width: 200px;display: inline-block" value="保存页面表单配置">
-                            <a class="add-sub-cate" data-toggle="tooltip" title="添加子分类" href="http://blog.webfsd.com/backend.php/AuthManager/addAuthRule/pid/75.html"><i class="icon-plus"></i></a>
+                            <a class="add-sub-cate" data-toggle="tooltip" title="添加子分类" href=""><i class="icon-plus"></i></a>
                         </div>
                     </form>
                 </dt>

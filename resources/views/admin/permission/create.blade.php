@@ -45,7 +45,7 @@
                 <div class="form-group">
                     {!! Form::label('pid',"上级权限",['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::select('pid[]', $permissions, old('pid') , ['id' => 'pid', 'class' => 'form-control']) !!}
+                        {!! Form::select('pid', $permissions, old('pid') , ['class' => 'form-control']) !!}
                     </div>
                 </div>
 

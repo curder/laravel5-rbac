@@ -19,6 +19,7 @@ class PermissionController extends Controller
         $permission = new Permission;
         $data = $permission->paginate(2);
 
+
         return view('admin.permission.index',compact('data'));
     }
 
