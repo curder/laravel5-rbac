@@ -37,11 +37,14 @@ class EntrustSetupTables extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id')->comment('权限id');
             $table->string('name')->unique()->comment('权限英文名称');
-            $table->integer('pid')->default(0)->unsigned()->comment('上级分类');
+            $table->integer('parent_id')->nullable()->index()->comment('上级分类');
             $table->tinyInteger('is_menu')->default(0)->unsigned()->comment('是否为菜单');
             $table->smallInteger('sort')->default(0)->unsigned()->comment('排序');
-            $table->string('display_name')->nullable()->comment('权限中文名称');
-            $table->string('description')->nullable()->comment('权限相关描述');
+            $table->string('display_name')->default('')->comment('权限中文名称');
+            $table->string('description')->default('')->comment('权限相关描述');
+            $table->integer('left')->nullable()->index()->comment('左索引');
+            $table->integer('right')->nullable()->index()->comment('右索引');
+            $table->integer('depth')->nullable()->comment('深度值');
             $table->timestamps();
         });
 

@@ -81,6 +81,7 @@
 <script src="{{ asset('static/admin/js/jquery.min.js') }}"></script>
 <!-- ZUI Javascript组件 -->
 <script src="{{ asset('static/admin/zui/js/zui.min.js') }}"></script>
+<script src="{{ asset('static/admin/js/admin.js') }}"></script>
 @yield('script')
 </body>
 </html>

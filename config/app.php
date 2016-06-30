@@ -164,6 +164,11 @@ return [
          * 权限验证
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
+
+        /**
+         * 无限级分类
+         */
+        Baum\Providers\BaumServiceProvider::class,
     ],
 
     /*

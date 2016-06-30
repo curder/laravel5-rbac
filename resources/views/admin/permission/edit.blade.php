@@ -1,21 +1,16 @@
 @extends('layouts.admin')
-@section('script')
-<script>
-    setValue('parent_id', {{ $permission->id }} );
-</script>
-@stop
 @section('content')
     <div class="col-md-10 col-sm-9">
         <div class="panel row">
             <div class="panel-heading">
-                <a href="{{ route('permission.create') }}" class="disabled"><strong> 新增权限 </strong></a> &nbsp;
+                <a href="{{ route('permission.edit',$permission->id) }}" class="disabled"><strong> 编辑权限 </strong></a> &nbsp;
                 <a href="{{ route('permission.index') }}"><strong> 权限管理 </strong></a> &nbsp;
             </div>
         </div><!--toolBar start-->
         <!-- 表单开始 -->
         <div class="panel default-view">
             <div class="panel-heading">
-                <strong>添加权限</strong>
+                <strong>编辑权限</strong>
             </div>
 
             {!! Form::open(['url' => route('permission.create'),'method'=>'post','class'=>'form-horizontal']) !!}
@@ -29,28 +24,28 @@
                 <div class="form-group">
                     {!! Form::label('name','权限英文名',['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::text('name',old('name'),['class'=>'form-control','placeholder'=>'权限英文名不允许重复']) !!}
+                        {!! Form::text('name',$permission->name,['class'=>'form-control','placeholder'=>'权限英文名不允许重复']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('display_name','权限中文文名',['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::text('display_name',old('display_name'),['class'=>'form-control','placeholder'=>'权限展示中文名']) !!}
+                        {!! Form::text('display_name',$permission->display_name,['class'=>'form-control','placeholder'=>'权限展示中文名']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('description',"简要描述",['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::textarea('description',old('description'),['placeholder'=>'这里填写当前权限的简要描述','class'=>'form-control']) !!}
+                        {!! Form::textarea('description',$permission->description,['placeholder'=>'这里填写当前权限的简要描述','class'=>'form-control']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('parent_id',"上级权限",['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::select('parent_id', $permissions, old('parent_id') , ['class' => 'form-control','placeholder'=>'请选择上级权限']) !!}
+                        {!! Form::select('parent_id', $permissionsTree, $permission->parent_id , ['class' => 'form-control','placeholder'=>'请选择上级权限']) !!}
                     </div>
                 </div>
 
