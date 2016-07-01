@@ -1,7 +1,8 @@
 body{padding-top: 60px;padding-bottom: 60px;background: #fff;}
 .row-main {padding: 0 10px;}
-.leftmenu{width:100%}
+.leftmenu{width:100%;margin-bottom: 20px;}
 .leftmenu.affix{position: relative;top: 0px}
+
 /*列表分页样式*/
 .pagination {  display: inline-block;  padding-left: 0;  margin: 20px 0;  border-radius: 4px;  }
 .pagination > li {  display: inline;  }
@@ -36,3 +37,10 @@ body{padding-top: 60px;padding-bottom: 60px;background: #fff;}
 .pagination-loose.pagination-pills > li > a, .pagination-loose.pagination-pills > li > span {  border-radius: 16px;  }
 .pagination-loose > li > a, .pagination-loose > li > span {  margin-left: 5px;  }
 .pagination-loose > li:first-child > a, .pagination-loose > li:first-child > span { margin-left: 0;  }
+
+/*授权页面样式*/
+#permissionsList .panel-group {margin-bottom: 15px;}
+#permissionsList .panel-body {padding: 0px 15px 5px 15px;}
+#permissionsList .panel-body .checkbox{margin-right: 10px}
+#permissionsList .panel-body .rule_check div{margin:5px 0;}
+#permissionsList .panel-body .divsion{margin-right: 20px;}

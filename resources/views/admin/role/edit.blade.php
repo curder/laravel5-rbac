@@ -3,8 +3,8 @@
     <div class="col-md-10 col-sm-9">
         <div class="panel row">
             <div class="panel-heading">
-                <a href="{{ route('role.edit',$role->id) }}" class="disabled"><strong> 编辑角色 </strong></a> &nbsp;
-                <a href="{{ route('role.index') }}"><strong> 角色管理 </strong></a> &nbsp;
+                <a href="{{ route('admin.role.edit',$role->id) }}" class="disabled"><strong> 编辑角色 </strong></a> &nbsp;
+                <a href="{{ route('admin.role.index') }}"><strong> 角色管理 </strong></a> &nbsp;
             </div>
         </div><!--toolBar start-->
         <!-- 表单开始 -->
@@ -13,7 +13,8 @@
                 <strong>编辑角色 {{ $role->name }}</strong>
             </div>
 
-            {!! Form::open(['url' => route('role.edit',$role->id),'method'=>'post','class'=>'form-horizontal']) !!}
+            {!! Form::open(['url' => route('admin.role.update',$role->id),'method'=>'post','class'=>'form-horizontal']) !!}
+            {{ method_field('PUT') }}
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
@@ -44,7 +45,7 @@
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}
-                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'javascript:history.back(-1);return false;']) !!}
+                        {!! Form::button('返回', ['class' => 'btn btn-default','onclick'=>'javascript:history.back(-1);return false;']) !!}
                     </div>
                 </div>
             </div>

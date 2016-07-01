@@ -68,9 +68,9 @@
                 <!-- 子导航 -->
                 <li class="nav-parent show"><a href="javascript:;"><span class="icon icon-cube-alt"></span>用户管理<i class="icon-rotate-90"></i></a>
                     <ul class="nav" style="display: block;">
-                        <li class="active"><a href="{{ route('user.index') }}"><i class="icon-list-ul"></i>用户管理</a></li>
-                        <li><a href="{{ route('role.index') }}"><i class="icon-play"></i>角色管理</a></li>
-                        <li><a href="{{ route('permission.index') }}"><i class="icon-list-ul"></i>权限列表</a></li>
+                        <li class="active"><a href="{{ route('admin.user.index') }}"><i class="icon-list-ul"></i>用户管理</a></li>
+                        <li><a href="{{ route('admin.role.index') }}"><i class="icon-play"></i>角色管理</a></li>
+                        <li><a href="{{ route('admin.permission.index') }}"><i class="icon-list-ul"></i>权限列表</a></li>
                     </ul>
                 </li>
             </ul>

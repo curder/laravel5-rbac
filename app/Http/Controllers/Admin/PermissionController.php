@@ -11,67 +11,70 @@ use App\Http\Controllers\Controller;
 class PermissionController extends Controller
 {
     /**
-     * 权限列表
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index($parent_id = null)
     {
-        $data = Permission::whereParentId($parent_id)->paginate(10);
-
+        if($parent_id){
+            $data = Permission::whereParentId($parent_id)->paginate(10);
+        }else{
+            $data = Permission::whereParentId(null)->paginate(10);
+        }
         return view('admin.permission.index',compact('data'));
     }
 
     /**
-     * 新增权限
-     * @param CreatePermissionRequest $request
-     * @param Permission $permission
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(CreatePermissionRequest $request,Permission $permission)
+    public function create($id = 0)
     {
-        if($request->isMethod('post')){
-            $input = $request->except(['_token']);
-            if($input['parent_id'] == "") unset($input['parent_id']);
-            $res = Permission::create($input);
-            if($res){
-                return redirect(route('permission.index'));
-            }else{
-                return back()->with('errors','数据提交失败，请稍后重试！');
-            }
-        }
+        $permissionsTree = Permission::getNestedList('display_name','id','└') ; // 所有权限
 
-        $permissions = Permission::getNestedList('display_name','id','└') ; // 所有权限
-
-        return view('admin.permission.create',compact('permissions','permission'));
+        return view('admin.permission.create',compact('permissionsTree','id'));
     }
 
     /**
-     * 编辑权限
-     * @param EditPermissionRequest $request
-     * @param Permission $permission
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function edit(EditPermissionRequest $request,Permission $permission)
+    public function store(CreatePermissionRequest $request,Permission $permission)
     {
-        if($request->isMethod('post')){ // 编辑操作
-            $input = $request->except('_token');
-
-            if($input['parent_id']){ // 放入子分类
-                $res = $permission->makeChildOf($input['parent_id']);
-            }else{ // 放入顶级分类
-                unset($input['parent_id']);
-                $res = $permission::where('id',$permission->id)->update($input);
-
-                $permission->parent_id = null;
-                if($res) $res = $permission->save();
-            }
-
-            if($res){
-                return redirect(route('permission.index'));
-            }else{
-                return back()->with('errors','数据提交失败，请稍后重试！');
-            }
+        $input = $request->except(['_token']);
+        if($input['parent_id'] == "") unset($input['parent_id']);
+        $res = Permission::create($input);
+        if($res){
+            return redirect(route('admin.permission.index'));
+        }else{
+            return back()->with('errors','数据提交失败，请稍后重试！');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $permission = Permission::whereId($id)->first();
 
         $permissionsTree = Permission::getNestedList('display_name','id','└'); // 获取所有节点树
 
@@ -88,4 +91,45 @@ class PermissionController extends Controller
         return view('admin.permission.edit',compact('permission','permissionsTree','disabledIdsArr'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(EditPermissionRequest $request,$id)
+    {
+
+        $input = $request->except(['_token','_method']);
+
+        $permission = Permission::whereId($id)->first();
+
+        if($input['parent_id']){ // 放入子分类
+            $res = $permission->makeChildOf($input['parent_id']);
+        }else{ // 放入顶级分类
+            unset($input['parent_id']);
+            $res = $permission::where('id',$permission->id)->update($input);
+
+            $permission->parent_id = null;
+            if($res) $res = $permission->save();
+        }
+
+        if($res){
+            return redirect(route('admin.permission.index'));
+        }else{
+            return back()->with('errors','数据提交失败，请稍后重试！');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

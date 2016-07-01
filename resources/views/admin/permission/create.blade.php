@@ -12,15 +12,14 @@
             ,display_disabled_options:true  // 显示不可选的选项
         });
     })
-    setValue('parent_id', {{ $permission->id }} );
 </script>
 @stop
 @section('content')
     <div class="col-md-10 col-sm-9">
         <div class="panel row">
             <div class="panel-heading">
-                <a href="{{ route('permission.create') }}" class="disabled"><strong> 新增权限 </strong></a> &nbsp;
-                <a href="{{ route('permission.index') }}"><strong> 权限管理 </strong></a> &nbsp;
+                <a href="{{ route('admin.permission.create') }}" class="disabled"><strong> 新增权限 </strong></a> &nbsp;
+                <a href="{{ route('admin.permission.index') }}"><strong> 权限管理 </strong></a> &nbsp;
             </div>
         </div><!--toolBar start-->
         <!-- 表单开始 -->
@@ -29,7 +28,7 @@
                 <strong>添加权限</strong>
             </div>
 
-            {!! Form::open(['url' => route('permission.create'),'method'=>'post','class'=>'form-horizontal']) !!}
+            {!! Form::open(['url' => route('admin.permission.store'),'method'=>'post','class'=>'form-horizontal']) !!}
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
@@ -61,7 +60,15 @@
                 <div class="form-group">
                     {!! Form::label('parent_id',"上级权限",['class'=>'control-label col-md-4']) !!}
                     <div class="col-md-4">
-                        {!! Form::select('parent_id', $permissions, old('parent_id') , ['class' => 'form-control','placeholder'=>'请选择上级权限']) !!}
+                        <select name="parent_id" id="parent_id" class="form-control" placeholder="请选择上级权限分类">
+                            <option value="">请选择上级分类</option>
+                            @foreach($permissionsTree as $key => $tree)
+                                <option value="{{ $key }}"
+                                        @if($key == $id) selected @endif
+                                >{{ $tree }}</option>
+                            @endforeach
+                        </select>
+                        {{--{!! Form::select('parent_id', $permissions, old('parent_id') , ['class' => 'form-control','placeholder'=>'请选择上级权限']) !!}--}}
                     </div>
                 </div>
 
@@ -75,7 +82,7 @@
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}
-                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'javascript:history.back(-1);return false;']) !!}
+                        {!! Form::button('返回', ['class' => 'btn btn-default','onclick'=>'javascript:history.back(-1);return false;']) !!}
                     </div>
                 </div>
             </div>

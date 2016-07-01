@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AddRoleRequest;
+use App\Http\Requests\PermissionsRequest;
+use App\Models\Permission;
 use App\Role;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
+use Psy\Util\Json;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 用户组列表
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -25,42 +26,105 @@ class RoleController extends Controller
     }
 
     /**
-     * 新增角色
-     * @param RoleRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create(RoleRequest $request)
+    {
+        return view('admin.role.create',compact(''));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(RoleRequest $request)
     {
         if($request->isMethod('post')){
             $input = $request->except(['_token']);
 
             $res = Role::insert($input);
             if($res){
-                return redirect(route('role.index'));
+                return redirect(route('admin.role.index'));
             }else{
                 return back()->with('errors','数据提交失败，请稍后重试！');
             }
         }
-        return view('admin.role.create',compact(''));
     }
 
     /**
-     * 编辑角色
-     * @param RoleRequest $request
+     * Display the specified resource.
+     * 查看角色组拥有的权限
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Role $role)
+    {
+        $permissions = Permission::permissionsTree(); // 获取所有存在的权限
+
+        // 通过多对多获取当前用户组所拥有权限
+        $this_role_permissions = $role->permissions()->get(['id'])->toArray();
+
+        $thisPermissionArray = []; // 当前用户所有权限集合
+        foreach($this_role_permissions as $permission){
+            $thisPermissionArray[] = $permission['id'];
+        }
+    $thisPermissionArray = Json::encode($thisPermissionArray);
+
+        return view('admin.role.show',compact('role','permissions','thisPermissionArray'));
+    }
+
+    /**
+     *
+     */
+    public function editPersissionToRole(Request $request ,Role $role)
+    {
+        $input = $request->except('_token');
+
+        $res = $role->perms()->sync($input['permission_id']);
+        if($res) {
+
+        }
+    }
+    /**
+     * Show the form for editing the specified resource.
      * @param Role $role
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(RoleRequest $request,Role $role)
+    public function edit(Role $role)
     {
-        if($request->isMethod('post')){
-            $input = $request->except('_token');
-            $res = Role::where('id',$role->id)->update($input);
-            if($res){
-                return redirect(route('role.index'));
-            }else{
-                return back()->with('errors','数据提交失败，请稍后重试！');
-            }
-        }
         return view('admin.role.edit',compact('role'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(RoleRequest $request,$id)
+    {
+        $input = $request->except(['_token','_method']);
+        $res = Role::where('id',$id)->update($input);
+        if($res){
+            return redirect(route('admin.role.index'));
+        }else{
+            return back()->with('errors','数据提交失败，请稍后重试！');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

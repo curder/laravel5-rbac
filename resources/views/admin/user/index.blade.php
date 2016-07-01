@@ -3,8 +3,8 @@
 <div class="col-md-10 col-sm-9">
     <div class="panel row">
         <div class="panel-heading">
-            <a href="{{ route('user.index') }}" class="disabled"><strong> 用户管理 </strong></a> &nbsp;
-            <a href="{{ route('user.create') }}" class=""><strong> 新增用户</strong></a> &nbsp;
+            <a href="{{ route('admin.user.index') }}" class="disabled"><strong> 用户管理 </strong></a> &nbsp;
+            <a href="{{ route('admin.user.create') }}" class=""><strong> 新增用户</strong></a> &nbsp;
         </div>
     </div><!--toolBar start-->
     <!-- 列表开始 -->
@@ -43,8 +43,8 @@
                             {!! $user->status_str !!}
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('user.edit',$user->id) }}">修改密码</a>&nbsp;
-                            <a href="/backend.php/AuthManager/group/uid/2.html" > 授权</a>&nbsp;
+                            <a href="{{ route('admin.user.edit',$user->id) }}">修改密码</a>&nbsp;
+                            <a href="{{ route('admin.user.getGroup',$user->id) }}" > 授权</a>&nbsp;
                             <a href="/backend.php/User/changeStatus/status/forbid/ids/2/model/User.html" class="jsoner">禁用</a>&nbsp;
                             <a href="/backend.php/User/changeStatus/status/delete/ids/2/model/User.html" class="deleter">删除</a>&nbsp;
                         </td>

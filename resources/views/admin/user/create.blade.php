@@ -3,8 +3,8 @@
 <div class="col-md-10 col-sm-9">
     <div class="panel row">
         <div class="panel-heading">
-            <a href="{{ route('user.create') }}" class="disabled"><strong> 新增用户 </strong></a> &nbsp;
-            <a href="{{ route('user.index') }}"><strong> 用户管理 </strong></a> &nbsp;
+            <a href="{{ route('admin.user.create') }}" class="disabled"><strong> 新增用户 </strong></a> &nbsp;
+            <a href="{{ route('admin.user.index') }}"><strong> 用户管理 </strong></a> &nbsp;
         </div>
     </div><!--toolBar start-->
     <!-- 表单开始 -->
@@ -13,12 +13,12 @@
                 <strong>添加用户</strong>
             </div>
 
-            {!! Form::open(['url' => route('user.create'),'method'=>'post','class'=>'form-horizontal']) !!}
+            {!! Form::open(['url' => route('admin.user.store'),'method'=>'post','class'=>'form-horizontal']) !!}
                 <div class="panel-body">
                     <div class="form-group">
-                    <div class="col-md-4 col-md-offset-4">
-                        @include('layouts.errors')
-                    </div>
+                        <div class="col-md-4 col-md-offset-4">
+                            @include('layouts.errors')
+                        </div>
                     </div>
                     <div class="form-group">
                         {!! Form::label('name','用户名',['class'=>'control-label col-md-4']) !!}
@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}
-                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'javascript:history.back(-1);return false;']) !!}
+                        {!! Form::button('返回', ['class' => 'btn btn-default','onclick'=>'javascript:history.back(-1);return false;']) !!}
                         </div>
                     </div>
                 </div>
