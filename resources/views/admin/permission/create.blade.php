@@ -1,6 +1,17 @@
 @extends('layouts.admin')
 @section('script')
 <script>
+    $(function(){
+        $("#parent_id").chosen({
+            allow_single_deselect:true
+            ,no_results_text: '没有匹配的选项'
+            , placeholder_text:' '           // 当检索时没有找到匹配项时显示的提示文本
+            , disable_search_threshold: 2   // 5个以下的选择项则不显示检索框
+            , width: '100%'
+            , search_contains: true         // 从任意位置开始检索
+            ,display_disabled_options:true  // 显示不可选的选项
+        });
+    })
     setValue('parent_id', {{ $permission->id }} );
 </script>
 @stop
@@ -61,11 +72,10 @@
                         {!! Form::radio('is_menu',1,false,['class'=>'']) !!} 是
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}
-                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'btn btn-default']) !!}
+                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'javascript:history.back(-1);return false;']) !!}
                     </div>
                 </div>
             </div>

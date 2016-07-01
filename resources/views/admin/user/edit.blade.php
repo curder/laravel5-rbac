@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}
-                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'btn btn-default']) !!}
+                        {!! Form::button('返回', ['class' => 'btn btn-default','click'=>'javascript:history.back(-1);return false;']) !!}
                     </div>
                 </div>
             </div>

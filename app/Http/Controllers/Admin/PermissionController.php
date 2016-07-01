@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Permission;
-use Illuminate\Http\Request;
-use App\Http\Requests\PermissionRequest;
+use App\Http\Requests\CreatePermissionRequest;
+use App\Http\Requests\EditPermissionRequest;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -23,12 +23,15 @@ class PermissionController extends Controller
 
     /**
      * 新增权限
+     * @param CreatePermissionRequest $request
+     * @param Permission $permission
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function create(PermissionRequest $request,Permission $permission)
+    public function create(CreatePermissionRequest $request,Permission $permission)
     {
         if($request->isMethod('post')){
             $input = $request->except(['_token']);
-            if($input['parent_id'] == 0) unset($input['parent_id']);
+            if($input['parent_id'] == "") unset($input['parent_id']);
             $res = Permission::create($input);
             if($res){
                 return redirect(route('permission.index'));
@@ -37,19 +40,52 @@ class PermissionController extends Controller
             }
         }
 
-        $permissions = Permission::getNestedList('display_name','id','- ') ; // 所有权限
+        $permissions = Permission::getNestedList('display_name','id','└') ; // 所有权限
 
         return view('admin.permission.create',compact('permissions','permission'));
     }
 
-    public function edit(Permission $permission)
+    /**
+     * 编辑权限
+     * @param EditPermissionRequest $request
+     * @param Permission $permission
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(EditPermissionRequest $request,Permission $permission)
     {
-        $permissionsTree = Permission::getNestedList('display_name','id','- '); // 获取所有节点树
+        if($request->isMethod('post')){ // 编辑操作
+            $input = $request->except('_token');
 
-        $parentId = $permission->getSiblings(['id'])->toArray(); // 当前分类的父类的所有子类
-        print_r($parentId);
+            if($input['parent_id']){ // 放入子分类
+                $res = $permission->makeChildOf($input['parent_id']);
+            }else{ // 放入顶级分类
+                unset($input['parent_id']);
+                $res = $permission::where('id',$permission->id)->update($input);
 
-        return view('admin.permission.edit',compact('permission','permissionsTree'));
+                $permission->parent_id = null;
+                if($res) $res = $permission->save();
+            }
+
+            if($res){
+                return redirect(route('permission.index'));
+            }else{
+                return back()->with('errors','数据提交失败，请稍后重试！');
+            }
+        }
+
+        $permissionsTree = Permission::getNestedList('display_name','id','└'); // 获取所有节点树
+
+        if(!is_null($permission->parent_id)){ // 如果不是顶级分类
+            $disabledIds = $permission->getSiblingsAndSelf(['id'])->toArray(); // 当前分类的父类的所有子类,禁用
+            $disabledIdsArr = array_flatten($disabledIds);
+        }else{
+            $pid = $permission->id;
+            $disabledIds = $permission->getDescendants(['id'])->toArray();
+            array_unshift( $disabledIds ,['id'=>$pid] );
+            $disabledIdsArr = array_flatten($disabledIds);
+        }
+
+        return view('admin.permission.edit',compact('permission','permissionsTree','disabledIdsArr'));
     }
 
 }

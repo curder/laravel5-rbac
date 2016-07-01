@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello world!</title>
     <!-- zui -->
-    <link href="{{ asset('static/admin/zui/css/zui.css') }}" rel="stylesheet">
-    <link href="{{ asset('static/admin/css/public.css') }}" rel="stylesheet">
+    {!! Html::style('static/admin/zui/css/zui.css') !!}
+    {{--{!! Html::style('//cdn.bootcss.com/chosen/1.5.0/chosen.min.css') !!}--}}
+    {!! Html::style('static/admin/zui/lib/chosen/chosen.min.css') !!}
+    {!! Html::style('static/admin/css/public.css') !!}
     @yield('style')
 </head>
 <body>
@@ -78,10 +80,13 @@
     @yield('content')
 </div>
 <!-- jQuery (ZUI中的Javascript组件依赖于jQuery) -->
-<script src="{{ asset('static/admin/js/jquery.min.js') }}"></script>
+{{--{!! Html::script('//cdn.bootcss.com/jquery/1.11.0/jquery.min.js') !!}--}}
+{!! Html::script('static/admin/js/jquery.min.js') !!}
 <!-- ZUI Javascript组件 -->
-<script src="{{ asset('static/admin/zui/js/zui.min.js') }}"></script>
-<script src="{{ asset('static/admin/js/admin.js') }}"></script>
+{!! Html::script('static/admin/zui/js/zui.min.js') !!}
+{{--{!! Html::script('//cdn.bootcss.com/chosen/1.5.0/chosen.jquery.min.js') !!}--}}
+{!! Html::script('static/admin/zui/lib/chosen/chosen.min.js') !!}
+{!! Html::script('static/admin/js/admin.js') !!}
 @yield('script')
 </body>
 </html>
