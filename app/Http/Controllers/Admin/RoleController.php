@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AddRoleRequest;
+use App\Http\Requests\RoleRequest;
 use App\Http\Requests\PermissionsRequest;
 use App\Models\Permission;
 use App\Role;

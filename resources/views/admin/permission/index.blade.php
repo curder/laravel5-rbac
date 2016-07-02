@@ -8,6 +8,9 @@
             </div>
         </div><!--toolBar start-->
         <!-- 列表开始 -->
+        @if($data->total() == 0)
+            @include('layouts.empty',['info'=>sprintf('抱歉！没有找到数据..<a href="%s" >添加权限</a>',route('admin.permission.create'))] )
+        @else
         <div class="panel row" id="admin-panel-list">
             <div class="panel-heading">
                 <strong>权限管理</strong> <span class="pull-right">共 <strong>{{ $data->total() }}</strong> 记录</span>
@@ -45,5 +48,6 @@
             <div class="panel-footer">
             </div>
         </div>
+        @endif
     </div>
 @stop

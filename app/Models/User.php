@@ -6,14 +6,15 @@ use App\Role;
 use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class User extends Model
+class user extends model
 {
     //
-    use EntrustUserTrait;
+    use entrustusertrait;
 
+    protected $guarded = [];
 
     /**
-     * 查询新增列 配合getFieldASttribute方法使用
+     * 查询新增列 配合getfieldasttribute方法使用
      * @var array
      */
     protected $appends = ['status_str'];
@@ -22,23 +23,23 @@ class User extends Model
      * 处理用户状态显示
      * @return string
      */
-    public function getStatusStrAttribute(){
+    public function getstatusstrattribute(){
         switch($this->status){
             case  1;
                 $status = 'success';
-                $typeStr = '正常';
+                $typestr = '正常';
                 break;
             case 0 ;
                 $status = 'error';
-                $typeStr = '禁用';
+                $typestr = '禁用';
                 break;
         }
-        return sprintf('<label class="label label-%s">%s</label>',$status,$typeStr);
+        return sprintf('<label class="label label-%s">%s</label>',$status,$typestr);
     }
 
     // 定义用户组和角色的多对多关系
     public function roles(){
-//        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
-        return $this->belongsToMany(Role::class);
+//        return $this->belongstomany(role::class,'role_user','user_id','role_id');
+        return $this->belongstomany(role::class);
     }
 }

@@ -29,52 +29,54 @@
         </div>
     </div>
 
-
-    <form class="form-inline" action="{{ route('admin.role.editPersissionToRole',$role->id) }}" method="post" id="permissionsList">
-        {{ csrf_field() }}
-        <input name="id" id="id" type="hidden" value="2" class="form-control hide">
-        @foreach($permissions as $tree)
-        <div class="panel-group">
-            <div class="panel row">
-                <div class="panel-heading">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" name="permission_id[]" class="permission permission_all" value="{{ $tree['id'] }}" data-permission-url="{{ $tree['name'] }}" />
-                        <strong>{{ $tree['display_name'] }}</strong>
-                    </label>
-                </div>
-                @if(isset($tree['_child']))
-                    @foreach($tree['_child'] as $tree2)
-                    <div class="panel-body">
-                        <div class="rule_check">
-                            <div>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree2['id'] }}" data-permission-url="{{ $tree2['name'] }}" />
-                                    <strong>{{ $tree2['display_name'] }}</strong>
-                                </label>
-                            </div>
-                            <span class="divsion">&nbsp;</span>
-                            <span class="child_row">
-                                @if(isset($tree2['_child']))
-                                    @foreach($tree2['_child'] as $tree3)
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree3['id'] }}" data-permission-url="{{ $tree3['name'] }}" />
-                                        {{ $tree3['display_name'] }}
-                                    </label>
-                                    @endforeach
-                                @endif
-                            </span>
-                        </div>
+    @if(empty($permissions))
+        @include('layouts.empty',['info'=>"抱歉！暂不存在任何权限，请添加权限。"])
+    @else
+        <form class="form-inline" action="{{ route('admin.role.editPersissionToRole',$role->id) }}" method="post" id="permissionsList">
+            {{ csrf_field() }}
+            @foreach($permissions as $tree)
+            <div class="panel-group">
+                <div class="panel row">
+                    <div class="panel-heading">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="permission_id[]" class="permission permission_all" value="{{ $tree['id'] }}" data-permission-url="{{ $tree['name'] }}" />
+                            <strong>{{ $tree['display_name'] }}</strong>
+                        </label>
                     </div>
-                    @endforeach
-                @endif
+                    @if(isset($tree['_child']))
+                        @foreach($tree['_child'] as $tree2)
+                        <div class="panel-body">
+                            <div class="rule_check">
+                                <div>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree2['id'] }}" data-permission-url="{{ $tree2['name'] }}" />
+                                        <strong>{{ $tree2['display_name'] }}</strong>
+                                    </label>
+                                </div>
+                                <span class="divsion">&nbsp;</span>
+                                <span class="child_row">
+                                    @if(isset($tree2['_child']))
+                                        @foreach($tree2['_child'] as $tree3)
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree3['id'] }}" data-permission-url="{{ $tree3['name'] }}" />
+                                            {{ $tree3['display_name'] }}
+                                        </label>
+                                        @endforeach
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
-        </div>
-        @endforeach
-        <div class="panel row">
-            <div class="panel-footer text-center">
-                <input type="submit" class="btn btn-primary ajax-post" target-form="accessForm" value="保存"> <input type="button" value="返回" class="btn btn-default" onclick="javascript:history.back(-1);return false;">
+            @endforeach
+            <div class="panel row">
+                <div class="panel-footer text-center">
+                    <input type="submit" class="btn btn-primary ajax-post" target-form="accessForm" value="保存"> <input type="button" value="返回" class="btn btn-default" onclick="javascript:history.back(-1);return false;">
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    @endif
 </div>
 @stop

@@ -29,7 +29,7 @@
             <ul class="nav navbar-nav">
                 <li class=""><a href="/backend.php/Index/index.html"><span class="icon-dashboard"></span>&nbsp;&nbsp;<b>首页</b></a></li>
                 <li class=""><a href="/backend.php/Article/index.html"><span class="icon-rss-sign"></span>&nbsp;&nbsp;<b>内容</b></a></li>
-                <li class="active"><a href="/backend.php/User/index.html"><span class="icon-user"></span>&nbsp;&nbsp;<b>用户</b></a></li>
+                <li class="active"><a href="{{ route('admin.user.index') }}"><span class="icon-user"></span>&nbsp;&nbsp;<b>用户</b></a></li>
                 <li class=""><a href="/backend.php/Config/group.html"><span class="icon-cog"></span>&nbsp;&nbsp;<b>系统</b></a></li>
                 <li class=""><a href="/backend.php/Addons/index.html"><span class="icon-info-sign"></span>&nbsp;&nbsp;<b>其他</b></a></li>
                 {{--<li class="dropdown">--}}

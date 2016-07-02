@@ -1,0 +1,1 @@
+<div class="row"><div class="alert alert-danger text-center">{!!  $info or "抱歉！暂时没有数据.." !!}</div></div>
