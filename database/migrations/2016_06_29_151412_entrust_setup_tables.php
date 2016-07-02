@@ -25,7 +25,7 @@ class EntrustSetupTables extends Migration
             $table->integer('user_id')->unsigned()->comment('用户id，关联users表');
             $table->integer('role_id')->unsigned()->comment('角色id，关联roles表');
 
-            $table->foreign('user_id')->references('id')->on('')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')->onDelete('cascade');
