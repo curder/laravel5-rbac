@@ -106,7 +106,10 @@ class PermissionController extends Controller
         $permission = Permission::whereId($id)->first();
 
         if($input['parent_id']){ // 放入子分类
-            $res = $permission->makeChildOf($input['parent_id']);
+            $res = $permission::where('id',$permission->id)->update($input);
+
+            if($res) $res = $permission->makeChildOf($input['parent_id']);
+
         }else{ // 放入顶级分类
             unset($input['parent_id']);
             $res = $permission::where('id',$permission->id)->update($input);
