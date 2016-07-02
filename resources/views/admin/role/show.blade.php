@@ -50,7 +50,7 @@
                                 <div>
                                     <label class="checkbox-inline">
                                         <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree2['id'] }}" data-permission-url="{{ $tree2['name'] }}" />
-                                        <strong>{{ $tree2['display_name'] }}</strong>
+                                        {{ $tree2['display_name'] }}
                                     </label>
                                 </div>
                                 <span class="divsion">&nbsp;</span>
@@ -58,7 +58,7 @@
                                     @if(isset($tree2['_child']))
                                         @foreach($tree2['_child'] as $tree3)
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" name="permission_id[]" class="permission permission_row" value="{{ $tree3['id'] }}" data-permission-url="{{ $tree3['name'] }}" />
+                                            <input type="checkbox" name="permission_id[]" class="permission" value="{{ $tree3['id'] }}" data-permission-url="{{ $tree3['name'] }}" />
                                             {{ $tree3['display_name'] }}
                                         </label>
                                         @endforeach
