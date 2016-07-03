@@ -160,12 +160,12 @@ return [
          * 页面Form表单
          */
         Collective\Html\HtmlServiceProvider::class,
-        /**
+        /*
          * 权限验证
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
 
-        /**
+        /*
          * 无限级分类
          */
         Baum\Providers\BaumServiceProvider::class,
@@ -220,7 +220,7 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        /**
+        /*
          * 权限验证
          */
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,

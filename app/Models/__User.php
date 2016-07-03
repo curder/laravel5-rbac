@@ -6,9 +6,10 @@ use App\Role;
 use Illuminate\Database\Eloquent\Model;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class user extends model
+
+
+class User extends Model
 {
-    //
     use entrustusertrait;
 
     protected $guarded = [];

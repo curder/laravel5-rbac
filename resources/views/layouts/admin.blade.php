@@ -27,11 +27,10 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse-div">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/backend.php/Index/index.html"><span class="icon-dashboard"></span>&nbsp;&nbsp;<b>首页</b></a></li>
-                <li class=""><a href="/backend.php/Article/index.html"><span class="icon-rss-sign"></span>&nbsp;&nbsp;<b>内容</b></a></li>
-                <li class="active"><a href="{{ route('admin.user.index') }}"><span class="icon-user"></span>&nbsp;&nbsp;<b>用户</b></a></li>
-                <li class=""><a href="/backend.php/Config/group.html"><span class="icon-cog"></span>&nbsp;&nbsp;<b>系统</b></a></li>
-                <li class=""><a href="/backend.php/Addons/index.html"><span class="icon-info-sign"></span>&nbsp;&nbsp;<b>其他</b></a></li>
+                @foreach($menuList['main'] as $mainMenu)
+                    <li class="@if($mainMenu['class']) active @endif"><a href="{{ route($mainMenu['name'] . '.index') }}">{{ $mainMenu['display_name'] }}</a></li>
+                @endforeach
+
                 {{--<li class="dropdown">--}}
                   {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">列表 <b class="caret"></b></a>--}}
                     {{--<ul class="dropdown-menu" role="menu">--}}
@@ -63,18 +62,11 @@
 
 <div class="row-main">
     <div class="col-md-2 col-sm-3">
-        <nav id="subnav" class="menu leftmenu affix" data-toggle="menu">
-            <ul class="nav nav-primary">
-                <!-- 子导航 -->
-                <li class="nav-parent show"><a href="javascript:;"><span class="icon icon-cube-alt"></span>用户管理<i class="icon-rotate-90"></i></a>
-                    <ul class="nav" style="display: block;">
-                        <li class="active"><a href="{{ route('admin.user.index') }}"><i class="icon-list-ul"></i>用户管理</a></li>
-                        <li><a href="{{ route('admin.role.index') }}"><i class="icon-play"></i>角色管理</a></li>
-                        <li><a href="{{ route('admin.permission.index') }}"><i class="icon-list-ul"></i>权限列表</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+        {{--左侧菜单--}}
+        @section('nav')
+            @include('admin.layouts.nav')
+        @show
+
     </div>
 
     @yield('content')
@@ -87,6 +79,13 @@
 {{--{!! Html::script('//cdn.bootcss.com/chosen/1.5.0/chosen.jquery.min.js') !!}--}}
 {!! Html::script('static/admin/zui/lib/chosen/chosen.min.js') !!}
 {!! Html::script('static/admin/js/admin.js') !!}
+@if(!empty($onload))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @foreach($onload as $v) {!! $v !!}; @endforeach
+        });
+    </script>
+@endif
 @yield('script')
 </body>
 </html>

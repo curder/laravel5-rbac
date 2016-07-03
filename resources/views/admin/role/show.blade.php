@@ -24,8 +24,9 @@
 <div class="col-md-10 col-sm-9">
     <div class="panel row">
         <div class="panel-heading">
-            <a href="http://localhost:8000/admin/user" class="disabled"><strong> 用户管理 </strong></a> &nbsp;
-            <a href="http://localhost:8000/admin/user/create" class=""><strong> 新增用户</strong></a> &nbsp;
+            <a href="{{ route('admin.role.show',$role->id) }}" class="disabled"><strong> {{ $role->name  }} </strong>角色授权</a> &nbsp;
+            <a href="{{ route('admin.role.create') }}" class=""> 新增角色</a> &nbsp;
+            <a href="{{ route('admin.role.index') }}" class=""> 角色列表</a> &nbsp;
         </div>
     </div>
 

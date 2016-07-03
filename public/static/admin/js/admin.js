@@ -1,3 +1,10 @@
+var admin = {};
+
+// 高亮显示左侧二级菜单
+admin.highlight_subnav = function (url) {
+    $('.leftmenu').find('a[href="'+url+'"]').closest('li').addClass("active").parent().css({'display':'block'}).parent().addClass('show').find(".nav-parent-fold-icon").addClass("icon-rotate-90");
+}
+
 // 设置表单的默认值
 function setValue(name, value){
     var first = name.substr(0,1), input, i = 0, val;

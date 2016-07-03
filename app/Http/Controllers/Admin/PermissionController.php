@@ -15,14 +15,16 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($parent_id = null)
+    public function index($id = null)
     {
-        if($parent_id){
-            $data = Permission::whereParentId($parent_id)->paginate(10);
+        if($id){
+            $data = Permission::whereParentId($id)->paginate(10);
         }else{
             $data = Permission::whereParentId(null)->paginate(10);
         }
-        return view('admin.permission.index',compact('data'));
+
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.permission.index')); // 默认左侧菜单高亮函数
+        return view('admin.permission.index',compact('data','onload'));
     }
 
     /**
@@ -34,7 +36,8 @@ class PermissionController extends Controller
     {
         $permissionsTree = Permission::getNestedList('display_name','id','└') ; // 所有权限
 
-        return view('admin.permission.create',compact('permissionsTree','id'));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.permission.index')); // 默认左侧菜单高亮函数
+        return view('admin.permission.create',compact('permissionsTree','id','onload'));
     }
 
     /**
@@ -88,7 +91,8 @@ class PermissionController extends Controller
             $disabledIdsArr = array_flatten($disabledIds);
         }
 
-        return view('admin.permission.edit',compact('permission','permissionsTree','disabledIdsArr'));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.permission.index')); // 默认左侧菜单高亮函数
+        return view('admin.permission.edit',compact('permission','permissionsTree','disabledIdsArr','onload'));
     }
 
     /**

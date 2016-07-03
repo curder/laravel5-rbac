@@ -10,6 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::pattern('id', '[0-9]+');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,17 +19,42 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-    Route::get('/home', ['as'=>'admin.index','uses'=>'IndexController@index']); // 后台首页
+Route::group(['prefix'=>'admin','middleware'=>['role.auth','role.menu'],'namespace'=>'Admin'],function(){
 
-    Route::get('user/getGroup/{user}',['as'=>'admin.user.getGroup','uses'=>'UserController@getGroup']);
-    Route::post('user/postGroup/{user}',['as'=>'admin.user.postGroup','uses'=>'UserController@postGroup']);
+    Route::get('/home', [
+        'as'=>'admin.index',
+        'uses'=>'IndexController@index'
+    ]); // 后台首页
+
+    Route::get('user/getGroup/{user}',[
+        'as'=>'admin.user.getGroup',
+        'uses'=>'UserController@getGroup'
+    ]);
+
+    Route::post('user/postGroup/{user}',[
+        'as'=>'admin.user.postGroup',
+        'uses'=>'UserController@postGroup'
+    ]);
+
     Route::resource('user','UserController');
 
-    Route::post('role/editPersissionToRole/{role}',['as'=>'admin.role.editPersissionToRole','uses'=>'RoleController@editPersissionToRole']);
+    Route::post('role/editPersissionToRole/{role}',[
+        'as'=>'admin.role.editPersissionToRole',
+        'uses'=>'RoleController@editPersissionToRole'
+    ]);
+
     Route::resource('role','RoleController');
 
-    Route::get('permission/create/{id?}',['as'=>'admin.permission.getCreate','uses'=>'PermissionController@create']);
-    Route::get('permission/index/{parent_id?}',['as'=>'admin.permission.getIndex','uses'=>'PermissionController@index']);
+    Route::get('permission/create/{id?}',[
+        'as'=>'admin.permission.getCreate',
+        'uses'=>'PermissionController@create'
+    ]);
+
+    Route::get('permission/index/{id?}',[
+        'as'=>'admin.permission.getIndex',
+        'uses'=>'PermissionController@index',
+        'id'=>'{parent_id}'
+    ]);
+
     Route::resource('permission','PermissionController');
 });

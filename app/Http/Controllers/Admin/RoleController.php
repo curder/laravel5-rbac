@@ -20,7 +20,7 @@ class RoleController extends Controller
     public function index()
     {
         $role = new Role;
-        $data = $role->paginate(2);
+        $data = $role->paginate(20);
 
         return view('admin.role.index',compact('data'));
     }
@@ -30,9 +30,10 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(RoleRequest $request)
+    public function create()
     {
-        return view('admin.role.create',compact(''));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.role.index')); // 默认左侧菜单高亮函数
+        return view('admin.role.create',compact('onload'));
     }
 
     /**
@@ -72,22 +73,28 @@ class RoleController extends Controller
         foreach($this_role_permissions as $permission){
             $thisPermissionArray[] = $permission['id'];
         }
-    $thisPermissionArray = Json::encode($thisPermissionArray);
 
-        return view('admin.role.show',compact('role','permissions','thisPermissionArray'));
+        $thisPermissionArray = Json::encode($thisPermissionArray);
+
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.role.index')); // 默认左侧菜单高亮函数
+        return view('admin.role.show',compact('role','permissions','thisPermissionArray','onload'));
     }
 
     /**
-     *
+     * 编辑用户组权限操作
      */
     public function editPersissionToRole(Request $request ,Role $role)
     {
         $input = $request->except('_token');
 
         $res = $role->perms()->sync($input['permission_id']);
-        if($res) {
 
+        if($res){
+            return redirect(route('admin.role.show',$role->id));
+        }else{
+            return back()->with('errors','数据提交失败，请稍后重试！');
         }
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -96,7 +103,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.role.edit',compact('role'));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.role.index')); // 默认左侧菜单高亮函数
+        return view('admin.role.edit',compact('role','onload'));
     }
 
     /**

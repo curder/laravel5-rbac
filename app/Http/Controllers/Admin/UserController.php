@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Permission;
 use App\Role;
-use App\Models\User;
+use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\EditUserRequest;
@@ -20,10 +20,11 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $user = new User;
         $data = $user->paginate(20);
 
-        echo Route::currentRouteName();
+//        echo Route::currentRouteName();
         return view('admin.user.index',compact('data'));
     }
 
@@ -34,7 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.user.index')); // 默认左侧菜单高亮函数
+        return view('admin.user.create',compact('onload'));
     }
 
     /**
@@ -74,7 +76,8 @@ class UserController extends Controller
             $this_roles[] = $role['id'];
         }
 
-        return view('admin.user.group',compact('allRole','user','this_roles'));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.user.index')); // 默认左侧菜单高亮函数
+        return view('admin.user.group',compact('allRole','user','this_roles','onload'));
     }
 
     /**
@@ -93,7 +96,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.edit',compact('user'));
+        $onload[]    = sprintf("admin.highlight_subnav('%s')",route('admin.user.index')); // 默认左侧菜单高亮函数
+        return view('admin.user.edit',compact('user','onload'));
     }
 
     /**
@@ -106,7 +110,7 @@ class UserController extends Controller
     {
         $input = $request->except(['_token','_method','email','name','password_confirmation']);
 
-        $input['password'] = Hash::make($request->password);
+        $input['password'] = Hash::make($request->password); // 加密密码
 
         $res = User::where('id',$user->id)->update($input);
 
