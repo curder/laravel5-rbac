@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.base')
 @section('script')
 <script>
     $(function(){

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_token" content="{{ csrf_token() }}">
     <title>Hello world!</title>
     <!-- zui -->
     {!! Html::style('static/admin/zui/css/zui.css') !!}
@@ -52,12 +53,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/" target="_blank"><i class="icon icon-home"></i> 前台</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好，curder <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好，{{ Auth::user()->name }} <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/backend.php/User/updatePassword.html" data-toggle="modal">修改密码</a></li>
-                        <li><a href="/backend.php/User/updateUserName.html" data-toggle="modal">修改昵称</a></li>
-                        <li class="divider"></li>
-                        <li><a onclick="admin.logout()" href="javascript:;">退出登录</a></li>
+                     {{--   <li><a href="updatePassword.html" data-toggle="modal">修改密码</a></li>
+                        <li><a href="updateUserName.html" data-toggle="modal">修改昵称</a></li>
+                        <li class="divider"></li>--}}
+                        <li><a href="{{ url('/logout') }}">退出登录</a></li>
                     </ul>
                 </li>
             </ul>
