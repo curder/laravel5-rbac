@@ -27,10 +27,15 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse-div">
             <ul class="nav navbar-nav">
+                @if(isset($menuList['main']))
                 @foreach($menuList['main'] as $mainMenu)
-                    <li class="@if($mainMenu['class']) active @endif"><a href="{{ route($mainMenu['name'] . '.index') }}">{{ $mainMenu['display_name'] }}</a></li>
+                    <li class="@if(isset($mainMenu['class'])) active @endif">
+                        <a href="{{ (count(explode('.',$mainMenu['name'])) == 2) ? route($mainMenu['name'] . '.index') : route($mainMenu['name']) }}">
+                            {{ $mainMenu['display_name'] }}
+                        </a>
+                    </li>
                 @endforeach
-
+                @endif
                 {{--<li class="dropdown">--}}
                   {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">列表 <b class="caret"></b></a>--}}
                     {{--<ul class="dropdown-menu" role="menu">--}}

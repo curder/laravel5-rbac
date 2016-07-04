@@ -19,42 +19,41 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::group(['prefix'=>'admin','middleware'=>['role.auth','role.menu'],'namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>['role.base','role.menu','role.auth'],'namespace'=>'Admin'],function(){
 
-    Route::get('/home', [
-        'as'=>'admin.index',
+    Route::get('index', [
+        'as'=>'admin.index.index',
         'uses'=>'IndexController@index'
     ]); // 后台首页
 
+    Route::resource('user','UserController');
     Route::get('user/getGroup/{user}',[
         'as'=>'admin.user.getGroup',
         'uses'=>'UserController@getGroup'
     ]);
-
     Route::post('user/postGroup/{user}',[
         'as'=>'admin.user.postGroup',
         'uses'=>'UserController@postGroup'
     ]);
+    /*Route::get('user',[
+        'as'=>'admin.user.index',
+        'uses'=>'UserController@index'
+    ]);*/
 
-    Route::resource('user','UserController');
-
+    Route::resource('role','RoleController');
     Route::post('role/editPersissionToRole/{role}',[
         'as'=>'admin.role.editPersissionToRole',
         'uses'=>'RoleController@editPersissionToRole'
     ]);
 
-    Route::resource('role','RoleController');
-
+    Route::resource('permission','PermissionController');
     Route::get('permission/create/{id?}',[
         'as'=>'admin.permission.getCreate',
         'uses'=>'PermissionController@create'
     ]);
-
     Route::get('permission/index/{id?}',[
         'as'=>'admin.permission.getIndex',
         'uses'=>'PermissionController@index',
         'id'=>'{parent_id}'
     ]);
-
-    Route::resource('permission','PermissionController');
 });

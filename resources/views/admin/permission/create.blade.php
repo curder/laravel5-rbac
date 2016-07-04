@@ -79,6 +79,9 @@
                         {!! Form::radio('is_menu',1,false,['class'=>'']) !!} 是
                     </div>
                 </div>
+
+
+
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         {!! Form::submit('保存', array('class' => 'btn btn-primary')) !!}

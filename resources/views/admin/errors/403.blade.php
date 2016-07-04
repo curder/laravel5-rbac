@@ -9,7 +9,7 @@
 
             <p>
                 抱歉，你没有操作权限！
-                此时你可以返回&nbsp;&nbsp;<a href="{{route('admin.index')}}">首页</a>&nbsp;&nbsp;或者&nbsp;&nbsp;<a href="{{$previousUrl}}">返回上一页</a>&nbsp;&nbsp;.
+                此时你可以返回&nbsp;&nbsp;<a href="{{route('admin.index.index')}}">首页</a>&nbsp;&nbsp;或者&nbsp;&nbsp;<a href="{{$previousUrl}}">返回上一页</a>&nbsp;&nbsp;.
             </p>
 
         </div>

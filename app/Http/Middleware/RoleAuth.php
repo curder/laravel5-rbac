@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Role;
 use Closure;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\Auth\Guard;
@@ -47,7 +46,6 @@ class RoleAuth
             }
         }
 
-        define('IS_ROOT',Role::isAdministrator());
 
         if(!IS_ROOT){ // 超管不受限制
 

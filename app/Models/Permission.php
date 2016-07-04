@@ -47,7 +47,6 @@ class Permission extends Node
         return self::toTree(self::all(['id','parent_id','name','dispaly_name'])->toArray());
     }
 
-
     /**
      * 获取菜单方法
      */
