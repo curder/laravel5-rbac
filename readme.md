@@ -22,6 +22,19 @@
 
 ### 以下是截图
 
+#### 普通测试用户权限
+
+![](https://raw.githubusercontent.com/curder/laravel5_rbac/master/public/static/admin/images/01.jpg)
+
+![](https://raw.githubusercontent.com/curder/laravel5_rbac/master/public/static/admin/images/forbidden.jpg)
+
+
+#### 管理员授权
+
+![](https://raw.githubusercontent.com/curder/laravel5_rbac/master/public/static/admin/images/02.jpg)
+![](https://raw.githubusercontent.com/curder/laravel5_rbac/master/public/static/admin/images/03.jpg)
+
+
 
 
 
