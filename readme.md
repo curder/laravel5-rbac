@@ -19,6 +19,12 @@
 - 执行 `php artisan key`
 
 - 项目目录下执行 `php artisan migrate`和`php artisan db:seed`，填充默认的数据库表结构和RBAC相关数据
+	- 如果使用mac系统使用mamp环境，执行 `php artisan migrate`的时候可能出现错误，如下：
+	```
+		[PDOException]                                    
+		SQLSTATE[HY000] [2002] No such file or directory
+	```
+	解决方案，参考这里：[ Getting this error? [PDOException] SQLSTATE[HY000] [2002] No such file or directory](http://www.johnshipp.com/php-artisan-migrate-laravel-5-pdoexception-sqlstatehy000-2002-no-such-file-or-directory-on-a-mac-using-mamp/)
 
 - 项目目录下执行 `php artisan serve` 使用默认的 `http://localhost:8000`访问首页
 
