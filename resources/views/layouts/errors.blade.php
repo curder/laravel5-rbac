@@ -4,10 +4,10 @@
         <ul>
             @if(is_object($errors))
                 @foreach($errors->all() as $err)
-                    <li>{{$err}}</li>
+                    <li>{{ trans($err) }}</li>
                 @endforeach
             @elseif(is_string($errors))
-                <li>{{$errors}}</li>
+                <li>{{ trans($errors) }}</li>
             @endif
         </ul>
     </div>
