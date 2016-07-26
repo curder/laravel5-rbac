@@ -25,6 +25,13 @@
 		SQLSTATE[HY000] [2002] No such file or directory
 	```
 	解决方案，参考这里：[ Getting this error? [PDOException] SQLSTATE[HY000] [2002] No such file or directory](http://www.johnshipp.com/php-artisan-migrate-laravel-5-pdoexception-sqlstatehy000-2002-no-such-file-or-directory-on-a-mac-using-mamp/)
+	
+    - 如果在安装过程中报如下错误
+    > ```
+    **FatalErrorException** in `Container.php` line 698:
+Maximum function nesting level of '100' reached, aborting!
+      ```
+	>修改`php.ini`文件`xdebug.max_nesting_level=500`,参考这里：[fatal-error-maximum-function-nesting-level-of-100](http://stackoverflow.com/questions/8656089/solution-for-fatal-error-maximum-function-nesting-level-of-100-reached-abor)
 
 - 项目目录下执行 `php artisan serve` 使用默认的 `http://localhost:8000`访问首页
 
