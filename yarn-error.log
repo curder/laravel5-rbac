@@ -1,0 +1,46 @@
+Arguments: 
+  /Users/curder/.nvm/versions/node/v12.21.0/bin/node /opt/homebrew/bin/yarn
+
+PATH: 
+  /Users/curder/.yarn/bin:/Users/curder/.config/yarn/global/node_modules/.bin:/opt/homebrew/Cellar/mysql@5.7/5.7.32/bin:/Users/curder/.composer/vendor/bin:/Users/curder/.nvm/versions/node/v12.21.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  12.21.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.nlark.com/laravel-elixir/download/laravel-elixir-5.0.0.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141289:19)
+      at Object.onceWrapper (events.js:420:28)
+      at ClientRequest.emit (events.js:314:20)
+      at TLSSocket.emitRequestTimeout (_http_client.js:715:9)
+      at Object.onceWrapper (events.js:420:28)
+      at TLSSocket.emit (events.js:326:22)
+      at TLSSocket.Socket._onTimeout (net.js:483:8)
+      at listOnTimeout (internal/timers.js:554:17)
+      at processTimers (internal/timers.js:497:7)
+
+npm manifest: 
+  {
+    "private": true,
+    "scripts": {
+      "prod": "gulp --production",
+      "dev": "gulp watch"
+    },
+    "devDependencies": {
+      "gulp": "^3.9.1",
+      "laravel-elixir": "^5.0.0",
+      "bootstrap-sass": "^3.0.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
